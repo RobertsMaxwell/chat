@@ -16,7 +16,7 @@ import llama from "../images/pfp/llama.png"
 import moose from "../images/pfp/moose.png"
 import zebra from "../images/pfp/zebra.png"
 
-const pfps = [alligator, buffalo, llama, moose, zebra]
+const pfps = [buffalo, llama, moose, zebra, alligator]
 
 function CommentHeader (props) {
     const [message, setMessage] = useState(null)
@@ -64,7 +64,7 @@ function CommentHeader (props) {
             <div className="message">
                 <div className="data">
                     <div className="pfp">
-                        <img src={message ? pfps[message.pfp] : pfp} alt="pfp" onClick={() => {
+                        <img src={message ? pfps[message.pfp - 1] : pfp} alt="pfp" onClick={() => {
                             if(message) {
                                 navigate(`/users/${message.handle}`)
                             }

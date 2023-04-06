@@ -11,7 +11,7 @@ import moose from "../images/pfp/moose.png"
 import zebra from "../images/pfp/zebra.png"
 import { ref, set } from "firebase/database";
 
-const pfps = [alligator, buffalo, llama, moose, zebra]
+const pfps = [buffalo, llama, moose, zebra, alligator]
 
 function ProfileHeader (props) {
     const [profile, setProfile] = useState(null)
@@ -58,7 +58,7 @@ function ProfileHeader (props) {
 
     return (
         <div className="profile_header">
-            <img src={profile ? pfps[profile.pfp] : pfp} alt="pfp" />
+            <img src={profile ? pfps[profile.pfp - 1] : pfp} alt="pfp" />
             <h1 className="handle">@{profile ? profile.username : ""}</h1>
             <p className="description">{profile ? profile.desc : ""}</p>
             {props.currentUser && props.currentUser.email.split("@")[0] === handle ?

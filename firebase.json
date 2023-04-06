@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "social-chat-project",
     "public": "build",
     "ignore": [
       "firebase.json",

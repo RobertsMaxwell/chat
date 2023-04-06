@@ -10,7 +10,7 @@ import llama from "../images/pfp/llama.png"
 import moose from "../images/pfp/moose.png"
 import zebra from "../images/pfp/zebra.png"
 
-const pfps = [alligator, buffalo, llama, moose, zebra]
+const pfps = [buffalo, llama, moose, zebra, alligator]
 
 function Message (props) {
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ function Message (props) {
         <div className="message">
             <div className="data">
                 <div className="pfp">
-                    <img onClick={() => {navigate(`/users/${props.message.handle}`)}} src={pfps[props.message.pfp]} alt="pfp" />
+                    <img onClick={() => {navigate(`/users/${props.message.handle}`)}} src={pfps[props.message.pfp - 1]} alt="pfp" />
                 </div>
                 <div className="text">
                     <h1 onClick={() => {navigate(`/users/${props.message.handle}`)}}>@{props.message.handle}</h1>
