@@ -15,9 +15,11 @@ function LoginPopup (props) {
 
     useEffect(() => {
         document.getElementsByTagName("body")[0].style.overflow = "hidden";
+        document.getElementsByTagName("body")[0].style.touchAction = "none";
 
         return () => {
             document.getElementsByTagName("body")[0].style.overflow = "visible";
+            document.getElementsByTagName("body")[0].style.touchAction = "initial";
         }
     }, [])
 

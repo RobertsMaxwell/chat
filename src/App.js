@@ -4,6 +4,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
 import Content from "./components/Content"
 import { useEffect, useState } from 'react';
+import logo from "./images/logo.png"
 
 function App() {
   const firebaseConfig = {
@@ -55,13 +56,15 @@ function App() {
   const endLoadingScreen = () => {
     setLoading(false)
     document.getElementsByTagName("body")[0].style.overflow = "visible";
+    document.getElementsByTagName("body")[0].style.touchAction = "initial";
   }
 
   return (
     <div className="App">
       {loading ?
       <div className="loading_screen">
-        Loading...
+        {/* <img className="logo_loader" src={logo} alt="logo" /> */}
+        <span className="initial_loader"></span>
       </div>
       : ""}
       <Content currentUser={currentUser} auth={auth} db={db} messages={messages} users={users} />
