@@ -6,6 +6,7 @@
     box-sizing: border-box;
     gap: 60px;
     position: relative;
+    border-bottom: 1px solid rgb(255, 255, 255, .5);
 }
 
 .home_header .greeting {
