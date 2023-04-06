@@ -1,0 +1,36 @@
+.options_wrapper {
+    position: absolute;
+    z-index: 99;
+}
+
+.options_wrapper .options {
+    position: fixed;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.options img {
+    height: 30px;
+    width: 30px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+/* desktop */
+@media only screen and (min-width: 1112px) {
+    .options_wrapper {
+        left: -250px;
+        top: 50px;
+    }
+}
+
+/* mobile */
+@media only screen and (max-width: 1111px) {
+    .options_wrapper {
+        right: 80px;
+        top: 30px;
+    }
+}

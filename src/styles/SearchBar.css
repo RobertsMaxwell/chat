@@ -1,0 +1,33 @@
+.search_container {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: min(350px, 60%);
+    height: 50px;
+    position: relative;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.search input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    background-color: #4d4b4b;
+    color: inherit;
+    padding-left: 50px;
+    font-size: 18px;
+}
+
+.search img {
+    position: absolute;
+    width: 25px;
+    left: 15px;
+}

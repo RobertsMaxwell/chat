@@ -1,0 +1,64 @@
+.feed {
+    display: flex;
+    flex-direction: column;
+}
+
+.feed .message {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 20px;
+    border-bottom: 1px solid white;
+}
+
+.feed .message .data {
+    display: flex;
+    gap: 20px;
+}
+
+.feed .message .data img {
+    height: 70px;
+    border-radius: 50px;
+}
+
+.feed .message .data .text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 22px;
+}
+
+.feed .message .data .text h1 {
+    font-size: 20px;
+}
+
+.feed .message .ratings {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.feed .message .ratings img {
+    height: 35px;
+    margin-left: 20px;
+    margin-right: 5px;
+}
+
+.feed .footer {
+    display: flex;
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+}
+
+.feed .footer button {
+    width: 150px;
+    height: 50px;
+    color: inherit;
+    background-color: #4d4b4b;
+    outline: none;
+    border: none;
+    font-size: 15px;
+    border-radius: 50px;
+}

@@ -1,0 +1,81 @@
+.profile_header {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 20px;
+    padding-left: 50px;
+    padding-top: 50px;
+    font-size: 20px;
+    border-bottom: 1px solid white;
+    position: relative;
+}
+
+.profile_header img {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
+
+.profile_header .handle {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.profile_header .description {
+    font-size: 25px;
+}
+
+.profile_header .title {
+    align-self: center;
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+.profile_header button {
+    width: 100px;
+    height: 40px;
+    background-color: #4d4b4b;
+    color: inherit;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    margin-top: 20px;
+}
+
+.edit_popup_wrapper {
+    position: absolute;
+    width: 100%;
+    height: 350px;
+    bottom: -250px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit_popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    height: 100%;
+    background-color: #202124;
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.edit_popup textarea {
+    resize: none;
+    background-color: #4d4b4b;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    height: 200px;
+    box-sizing: border-box;
+    padding: 10px;
+    color: inherit;
+    font-size: 20px;
+}

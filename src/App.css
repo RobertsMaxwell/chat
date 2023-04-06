@@ -1,4 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo&family=Nunito+Sans&display=swap');
+
 * {
   padding: 0;
   margin: 0;
+}
+
+body {
+  background-color: #202124;
+  color: white;
+  font-family: 'Heebo', sans-serif;
+  overflow: hidden;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+
+  min-height: 100vh;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+button:hover, .ratings img:hover, .options img:hover, .options h1:hover, .message h1:hover, .message img:hover, .clickable:hover {
+  cursor: pointer;
+}
+
+@keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+.loading_screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 200;
+  background-color: #202124;
 }
