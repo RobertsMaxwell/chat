@@ -73,7 +73,7 @@ body {
   100% { height: 4px}
 }
 
-button:hover, .ratings img:hover, .options img:hover, .options h1:hover, .message h1:hover, .message img:hover, .clickable:hover {
+button:hover, .ratings img:hover, .options img:hover, .options h1:hover, .message h1:hover, .message img:hover, .clickable:hover, img[alt="close"] {
   cursor: pointer;
 }
 

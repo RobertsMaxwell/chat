@@ -1,6 +1,6 @@
 .content {
     width: 600px;
-    border-left: 1px solid white;
-    border-right: 1px solid white;
+    border-left: 1px solid rgb(255, 255, 255, .5);
+    border-right: 1px solid rgb(255, 255, 255, .5);
     position: relative;
 }

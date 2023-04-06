@@ -5,7 +5,7 @@
 
 .options_wrapper .options {
     position: fixed;
-    font-size: 20px;
+    font-size: 16px;
     display: flex;
     flex-direction: column;
     gap: 15px;
