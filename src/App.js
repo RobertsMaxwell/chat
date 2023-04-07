@@ -4,7 +4,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
 import Content from "./components/Content"
 import { useEffect, useState } from 'react';
-import logo from "./images/logo.png"
 
 function App() {
   const firebaseConfig = {

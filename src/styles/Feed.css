@@ -45,6 +45,22 @@
     margin-right: 5px;
 }
 
+.feed .message .expand {
+    box-sizing: border-box;
+    padding-top: 20px;
+    padding-left: 10px;
+    color: #6cb9f8;
+}
+
+.feed .message .expand p {
+    /* text-decoration: underline; */
+    text-underline-offset: 2px;
+}
+
+.feed .message .expand p:hover {
+    cursor: pointer;
+}
+
 .feed .message .ratings img:first-child {
     height: 30px;
 }

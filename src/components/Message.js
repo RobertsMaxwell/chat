@@ -31,24 +31,31 @@ function Message (props) {
                 </div>
             </div>
             {props.message.replyCount !== undefined ?
-            <div className="ratings">
-                <>
-                    <img onClick={() => {
-                        if(!props.currentUser) {
-                            props.setLoginPopup(true)
-                            return
-                        }
-                        likePost(props.message, props.auth, props.db, props.users)
-                    }}src={props.currentUser && props.users[props.currentUser.uid].liked && props.users[props.currentUser.uid].liked.includes(props.message.id) ? favorite_filled : favorite} alt="favorite" />
-                    <p>{props.message.likeCount}</p>
-                </>
-                <>
-                    <img onClick={() => {
-                        navigate("/comment/" + props.message.id)
-                    }} src={comment} alt="comment" />
-                    <p>{props.message.replyCount}</p>
-                </>
-            </div>
+            <>
+                <div className="ratings">
+                    <>
+                        <img onClick={() => {
+                            if(!props.currentUser) {
+                                props.setLoginPopup(true)
+                                return
+                            }
+                            likePost(props.message, props.auth, props.db, props.users)
+                        }}src={props.currentUser && props.users[props.currentUser.uid].liked && props.users[props.currentUser.uid].liked.includes(props.message.id) ? favorite_filled : favorite} alt="favorite" />
+                        <p>{props.message.likeCount}</p>
+                    </>
+                    <>
+                        <img onClick={() => {
+                            navigate("/comment/" + props.message.id)
+                        }} src={comment} alt="comment" />
+                        <p>{props.message.replyCount}</p>
+                    </>
+                </div>
+                {props.message.replyCount > 0 ?
+                <div className="expand">
+                    <p onClick={() => {navigate("/comment/" + props.message.id)}}>Show replies</p>
+                </div>
+                : ""}
+            </>
             : ""}
         </div>
     );
