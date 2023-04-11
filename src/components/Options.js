@@ -4,11 +4,14 @@ import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 
 import menu from "../images/menu.png"
+import { useSelector } from "react-redux";
 
 function Options (props) {
     const navigate = useNavigate();
     const [menuPopup, setMenuPopup] = useState(false);
     const [width, setWidth] = useState(window.innerWidth)
+
+    const reduxState = useSelector((store) => {return store})
 
     useEffect(() => {
         const handleResize = () => {
@@ -28,13 +31,13 @@ function Options (props) {
                 {width > 1111 ?
                 <>
                     <h1 onClick={() => {navigate("/")}}>Home</h1>
-                    {props.currentUser === null ?
+                    {reduxState.currentUser === null ?
                     <h1 onClick={() => {props.setLoginPopup(true)}}>Sign in</h1>
                     :
                     <>
-                        <h1 onClick={() => {navigate("/users/" + props.currentUser.email.split("@")[0])}}>Profile</h1>
+                        <h1 onClick={() => {navigate("/users/" + reduxState.currentUser.email.split("@")[0])}}>Profile</h1>
                         <h1 onClick={() => {
-                            signOut(props.auth)
+                            signOut(reduxState.auth)
                             .catch(e => {
                                 alert(e.message)
                             })

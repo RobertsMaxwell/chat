@@ -5,6 +5,7 @@ import close from "../images/close.png"
 
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth"
 import { ref, set } from "firebase/database";
+import { useSelector } from "react-redux";
 
 function LoginPopup (props) {
     const [loginPage, setLoginPage] = useState(true)
@@ -12,6 +13,8 @@ function LoginPopup (props) {
 
     const [loginInfo, setLoginInfo] = useState({username: "", password: ""})
     const [signupInfo, setSignupInfo] = useState({username: "", password: "", cpassword: ""})
+
+    const reduxState = useSelector((store) => {return store})
 
     useEffect(() => {
         document.getElementsByTagName("body")[0].style.overflow = "hidden";
@@ -24,10 +27,10 @@ function LoginPopup (props) {
     }, [])
 
     useEffect(() => {
-        if(props.currentUser !== null) {
+        if(reduxState.currentUser !== null) {
             props.setPopup(false)
         }
-    }, [props.currentUser])
+    }, [reduxState.currentUser])
 
     const usernameError = str => {
         if(str.length === 0) {
@@ -99,7 +102,7 @@ function LoginPopup (props) {
                             return
                         } else {
                             setLoading(true)
-                            signInWithEmailAndPassword(props.auth, loginInfo.username + "@example.com", loginInfo.password)
+                            signInWithEmailAndPassword(reduxState.auth, loginInfo.username + "@example.com", loginInfo.password)
                             .then(() => {
                                 props.setPopup(false)
                             })
@@ -133,9 +136,9 @@ function LoginPopup (props) {
                             return
                         } else {
                             setLoading(true)
-                            createUserWithEmailAndPassword(props.auth, signupInfo.username + "@example.com", signupInfo.password)
+                            createUserWithEmailAndPassword(reduxState.auth, signupInfo.username + "@example.com", signupInfo.password)
                             .then((userCred) => {
-                                createUserProfile(userCred.user, props.db)
+                                createUserProfile(userCred.user, reduxState.db)
                                 .then(() => {
                                     props.setPopup(false)
                                 })

@@ -15,6 +15,7 @@ import buffalo from "../images/pfp/buffalo.png"
 import llama from "../images/pfp/llama.png"
 import moose from "../images/pfp/moose.png"
 import zebra from "../images/pfp/zebra.png"
+import { useSelector } from "react-redux"
 
 const pfps = [buffalo, llama, moose, zebra, alligator]
 
@@ -25,14 +26,16 @@ function CommentHeader (props) {
 
     const [replyMessage, setReplyMessage] = useState("")
 
+    const reduxState = useSelector((store) => {return store})
+
     useEffect(() => {
-        if(Object.keys(props.users).length && Object.keys(props.messages)) {
-            const msg = props.messages[commentId]
+        if(Object.keys(reduxState.users).length && Object.keys(reduxState.messages)) {
+            const msg = reduxState.messages[commentId]
             if(!msg) {
                 alert("Invalid Message Id")
                 navigate("/")
             }
-            const user = props.users[msg.user]
+            const user = reduxState.users[msg.user]
             setMessage({
                 id: commentId,
                 handle: user.username,
@@ -47,8 +50,8 @@ function CommentHeader (props) {
                 for(const key of Object.keys(msg.repliesArray)) {
                     const reply = msg.repliesArray[key]
                     tmp.push({
-                        handle: props.users[reply.user].username,
-                        pfp: props.users[reply.user].pfp,
+                        handle: reduxState.users[reply.user].username,
+                        pfp: reduxState.users[reply.user].pfp,
                         message: reply.message
                     })
                 }
@@ -57,7 +60,7 @@ function CommentHeader (props) {
                 props.setMessages([])
             }
         }
-    }, [props.users, props.messages])
+    }, [reduxState.users, reduxState.messages])
 
     return (
         <div className="comment_header">
@@ -82,12 +85,12 @@ function CommentHeader (props) {
                 <div className="ratings">
                     <>
                         <img onClick={() => {
-                            if(!props.auth.currentUser) {
+                            if(!reduxState.currentUser) {
                                 props.setLoginPopup(true)
                                 return
                             }
-                            likePost(message, props.auth, props.db, props.users)
-                            }} src={message && props.currentUser && props.users[props.currentUser.uid].liked && props.users[props.currentUser.uid].liked.includes(message.id) ? favorite_filled : favorite} alt="favorite" />
+                            likePost(message, reduxState.auth, reduxState.db, reduxState.users)
+                            }} src={message && reduxState.auth.currentUser && reduxState.users[reduxState.auth.currentUser.uid] && reduxState.users[reduxState.auth.currentUser.uid].liked && reduxState.users[reduxState.auth.currentUser.uid].liked.includes(message.id) ? favorite_filled : favorite} alt="favorite" />
                         <p>{message ? message.likeCount : ""}</p>
                     </>
                     <>
@@ -105,17 +108,17 @@ function CommentHeader (props) {
                     }
                 }}type="text" placeholder="Write a reply..." />
                 <button onClick={() => {
-                    if(!props.auth.currentUser) {
+                    if(!reduxState.currentUser) {
                         props.setLoginPopup(true)
                         return
                     }
                     if(replyMessage.length > 0) {
-                        const replyRef = ref(props.db, "/messages/" + commentId + "/repliesArray")
+                        const replyRef = ref(reduxState.db, "/messages/" + commentId + "/repliesArray")
                         set(push(replyRef), {
                             message: replyMessage,
-                            user: props.auth.currentUser.uid,
+                            user: reduxState.currentUser.uid,
                         })
-                        set(ref(props.db, "/messages/" + commentId + "/replies"), props.messages[commentId].replies + 1)
+                        set(ref(reduxState.db, "/messages/" + commentId + "/replies"), reduxState.messages[commentId].replies + 1)
                         setReplyMessage("")
                     }
                 }}>Reply</button>

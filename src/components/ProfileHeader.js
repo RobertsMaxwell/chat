@@ -10,6 +10,7 @@ import llama from "../images/pfp/llama.png"
 import moose from "../images/pfp/moose.png"
 import zebra from "../images/pfp/zebra.png"
 import { ref, set } from "firebase/database";
+import { useSelector } from "react-redux";
 
 const pfps = [buffalo, llama, moose, zebra, alligator]
 
@@ -21,26 +22,27 @@ function ProfileHeader (props) {
     const { handle } = useParams();
 
     const navigate = useNavigate();
+    const reduxState = useSelector((store) => {return store})
 
     useEffect(() => {
-        if(Object.keys(props.messages).length && Object.keys(props.users).length) {
+        if(Object.keys(reduxState.messages).length && Object.keys(reduxState.users).length) {
             let uid = -1
-            for(const key of Object.keys(props.users)) {
-                if(props.users[key].username === handle) {
+            for(const key of Object.keys(reduxState.users)) {
+                if(reduxState.users[key].username === handle) {
                     uid = key
                     break
                 }
             }
 
-            if(props.users[uid]) {
-                setProfile({...props.users[uid], id: uid})
+            if(reduxState.users[uid]) {
+                setProfile({...reduxState.users[uid], id: uid})
                 let tmp = []
-                for(const key of Object.keys(props.messages).filter(e => props.messages[e].user === uid)) {
-                    const msg = props.messages[key]
+                for(const key of Object.keys(reduxState.messages).filter(e => reduxState.messages[e].user === uid)) {
+                    const msg = reduxState.messages[key]
                     tmp.push({
                         id: key,
-                        handle: props.users[msg.user].username,
-                        pfp: props.users[msg.user].pfp,
+                        handle: reduxState.users[msg.user].username,
+                        pfp: reduxState.users[msg.user].pfp,
                         message: msg.message,
                         likeCount: msg.likes,
                         replyCount: msg.replies,
@@ -54,14 +56,14 @@ function ProfileHeader (props) {
                 navigate("/")
             }
         }
-    }, [props.messages, props.users, handle])
+    }, [reduxState.messages, reduxState.users, handle])
 
     return (
         <div className="profile_header">
             <img src={profile ? pfps[profile.pfp - 1] : pfp} alt="pfp" />
             <h1 className="handle">@{profile ? profile.username : ""}</h1>
             <p className="description">{profile ? profile.desc : ""}</p>
-            {props.currentUser && props.currentUser.email.split("@")[0] === handle ?
+            {reduxState.auth.currentUser && reduxState.auth.currentUser.email.split("@")[0] === handle ?
             <button onClick={() => {setEditPopup(!editPopup)}}>Edit</button>
             : ""}
             <h1 className="title">{profile ? `${profile.username}'s recent messages` : ""}</h1>
@@ -79,7 +81,7 @@ function ProfileHeader (props) {
                         if(newDescription.length <= 0) {
                             return
                         }
-                        const descRef = ref(props.db, "/users/" + profile.id + "/desc")
+                        const descRef = ref(reduxState.db, "/users/" + profile.id + "/desc")
                         set(descRef, newDescription)
                         setNewDescription("")
                         setEditPopup(false)

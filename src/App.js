@@ -4,6 +4,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
 import Content from "./components/Content"
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 function App() {
   const firebaseConfig = {
@@ -20,6 +21,9 @@ function App() {
   const auth = getAuth(firebase)
   const db = getDatabase(firebase)
 
+  const reduxState = useSelector((store) => {return store})
+  const dispatch = useDispatch()
+
   const [currentUser, setCurrentUser] = useState(null)
 
   const [messages, setMessages] = useState({})
@@ -28,26 +32,30 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    dispatch({type: "UPDATE_AUTH_DB", payload: {auth: auth, db: db}})
 
     onValue(ref(db, "/messages"), snapshot => {
       if(snapshot.val()) {
         setMessages(snapshot.val())
+        dispatch({type: "UPDATE_MESSAGES", payload: snapshot.val()})
       }
     })
 
     onValue(ref(db, "/users"), snapshot => {
       if(snapshot.val()) {
         setUsers(snapshot.val())
+        dispatch({type: "UPDATE_USERS", payload: snapshot.val()})
       }
     })
 
     onAuthStateChanged(auth, user => {
       setCurrentUser(user)
+      dispatch({type: "UPDATE_CURRENTUSER", payload: user})
     })
   }, [])
 
   useEffect(() => {
-    if(Object.keys(messages).length > 0 && Object.keys(users).length > 0) {
+    if(Object.keys(reduxState.messages).length > 0 && Object.keys(reduxState.users).length > 0) {
       setTimeout(endLoadingScreen, 1000)
     }
   }, [messages, users])
@@ -62,7 +70,6 @@ function App() {
     <div className="App">
       {loading ?
       <div className="loading_screen">
-        {/* <img className="logo_loader" src={logo} alt="logo" /> */}
         <span className="initial_loader"></span>
       </div>
       : ""}

@@ -2,9 +2,11 @@ import { signOut } from "firebase/auth";
 import "../styles/MenuPopup.css"
 import { useNavigate } from "react-router-dom";
 import close from "../images/close.png"
+import { useSelector } from "react-redux";
 
 function MenuPopup (props) {
     const navigate = useNavigate();
+    const reduxState = useSelector((store) => {return store})
 
     return (
         <div className="menu_popup">
@@ -12,7 +14,7 @@ function MenuPopup (props) {
                 navigate("/")
                 props.setPopup(false)
                 }}>Home</h1>
-            {props.currentUser === null ?
+            {reduxState.currentUser === null ?
             <h1 onClick={() => {
                 props.setLoginPopup(true)
                 props.setPopup(false)
@@ -20,11 +22,11 @@ function MenuPopup (props) {
             :
             <>
                 <h1 onClick={() => {
-                    navigate("/users/" + props.currentUser.email.split("@")[0])
+                    navigate("/users/" + reduxState.currentUser.email.split("@")[0])
                     props.setPopup(false)
                     }}>Profile</h1>
                 <h1 onClick={() => {
-                    signOut(props.auth)
+                    signOut(reduxState.auth)
                     .catch(e => {
                         alert(e.message)
                     })

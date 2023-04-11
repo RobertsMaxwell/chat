@@ -9,11 +9,13 @@ import buffalo from "../images/pfp/buffalo.png"
 import llama from "../images/pfp/llama.png"
 import moose from "../images/pfp/moose.png"
 import zebra from "../images/pfp/zebra.png"
+import { useSelector } from "react-redux";
 
 const pfps = [buffalo, llama, moose, zebra, alligator]
 
 function Message (props) {
     const navigate = useNavigate();
+    const reduxState = useSelector((store) => {return store})
 
     return (
         <div className="message">
@@ -35,12 +37,12 @@ function Message (props) {
                 <div className="ratings">
                     <>
                         <img onClick={() => {
-                            if(!props.currentUser) {
+                            if(!reduxState.currentUser) {
                                 props.setLoginPopup(true)
                                 return
                             }
-                            likePost(props.message, props.auth, props.db, props.users)
-                        }}src={props.currentUser && props.users[props.currentUser.uid].liked && props.users[props.currentUser.uid].liked.includes(props.message.id) ? favorite_filled : favorite} alt="favorite" />
+                            likePost(props.message, reduxState.auth, reduxState.db, reduxState.users)
+                        }}src={reduxState.auth.currentUser && reduxState.users[reduxState.auth.currentUser.uid] && reduxState.users[reduxState.auth.currentUser.uid].liked && reduxState.users[reduxState.auth.currentUser.uid].liked.includes(props.message.id) ? favorite_filled : favorite} alt="favorite" />
                         <p>{props.message.likeCount}</p>
                     </>
                     <>

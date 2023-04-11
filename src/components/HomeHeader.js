@@ -3,6 +3,7 @@ import "../styles/HomeHeader.css"
 import close from "../images/close.png"
 import { useEffect, useState } from "react";
 import { ref, push, set } from "firebase/database";
+import { useSelector } from "react-redux";
 
 function HomeHeader (props) {
     const [messagePopup, setMessagePopup] = useState(false)
@@ -10,16 +11,18 @@ function HomeHeader (props) {
 
     const charLimit = 128
 
+    const reduxState = useSelector((store) => {return store})
+
     // handle feed for home
     useEffect(() => {
-        if(Object.keys(props.messages).length && Object.keys(props.users).length) {
+        if(Object.keys(reduxState.messages).length && Object.keys(reduxState.users).length) {
             let tmp = []
-            for(const key in props.messages) {
-                const msg = props.messages[key]
+            for(const key in reduxState.messages) {
+                const msg = reduxState.messages[key]
                 tmp.push({
                     id: key,
-                    handle: props.users[msg.user].username,
-                    pfp: props.users[msg.user].pfp,
+                    handle: reduxState.users[msg.user].username,
+                    pfp: reduxState.users[msg.user].pfp,
                     message: msg.message,
                     likeCount: msg.likes,
                     replyCount: msg.replies,
@@ -29,13 +32,13 @@ function HomeHeader (props) {
             tmp.sort((a, b) => b.time - a.time)
             props.setMessages(tmp)
         }
-    }, [props.messages, props.users])
+    }, [reduxState.messages, reduxState.users])
 
     return (
         <div className="home_header">
             <h1 className="greeting">Connect with people</h1>
             <button onClick={() => {
-                if(props.auth.currentUser !== null) {
+                if(reduxState.currentUser !== null) {
                     setMessagePopup(true)
                 } else {
                     props.setLoginPopup(true)
@@ -55,7 +58,7 @@ function HomeHeader (props) {
                 <p>{`${message.length}/${charLimit}`}</p>
                 <button onClick={() => {
                     if(message.length > 0) {
-                        postMessage(props.auth, props.db, message)
+                        postMessage(reduxState.auth, reduxState.db, message)
                         setMessagePopup(false)
                         setMessage("")
                     }
