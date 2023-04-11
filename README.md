@@ -1,6 +1,7 @@
 # Social Chat https://social-chat-project.web.app/
 
 Chat app that allows you to send messages globally, and reply to others.
+Created with React, Firebase, and Redux.
 
 <img src="./src/images/home_capture.png" alt="home capture" width="600px" />
 
